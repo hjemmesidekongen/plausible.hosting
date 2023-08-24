@@ -3,11 +3,15 @@ services:
   mail:
     image: bytemark/smtp
     restart: always
+    networks:
+      - plausible_internal
 
   plausible_db:
     # supported versions are 12, 13, and 14
     image: postgres:14-alpine
     restart: always
+    networks:
+      - plausible_internal
     volumes:
       - db-data:/var/lib/postgresql/data
     environment:
@@ -16,6 +20,8 @@ services:
   plausible_events_db:
     image: clickhouse/clickhouse-server:23.3.7.5-alpine
     restart: always
+    networks:
+      - plausible_internal
     volumes:
       - event-data:/var/lib/clickhouse
       - ./clickhouse/clickhouse-config.xml:/etc/clickhouse-server/config.d/logging.xml:ro
@@ -37,6 +43,7 @@ services:
       - 4000:8000
     networks:
       - traefik
+      - plausible_internal
     environment:
       BASE_URL: https://plausible.hjemmesidekongen.dk
       SECRET_KEY_BASE: asdklasdjlajdlkasdjalkdjaslkjaskldjaslkdj
@@ -56,3 +63,4 @@ volumes:
 networks:
   traefik:
     external: true
+  plausible_internal:
