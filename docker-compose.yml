@@ -34,12 +34,25 @@ services:
       - plausible_events_db
       - mail
     ports:
-      - 8000:8000
-    env_file:
-      - plausible-conf.env
+      - 4000:8000
+    networks:
+      - traefik
+    environment:
+      BASE_URL: plausible.hjemmesidekongen.dk
+      SECRET_KEY_BASE: asdklasdjlajdlkasdjalkdjaslkjaskldjaslkdj
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik"
+      - "traefik.http.routers.plausible.entrypoints=websecure"
+      - "traefik.http.routers.plausible.rule=Host(`plausible.hjemmesidekongen.dk`)"
+      - "traefik.http.routers.plausible.tls.certresolver=production"
 
 volumes:
   db-data:
     driver: local
   event-data:
     driver: local
+
+networks:
+  traefik:
+    external: true
