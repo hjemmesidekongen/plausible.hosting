@@ -46,7 +46,7 @@ services:
       - plausible_internal
     environment:
       BASE_URL: https://plausible.hjemmesidekongen.dk
-      SECRET_KEY_BASE: asdklasdjlajdlkasdjalkdjaslkjaskldjaslkdj
+      SECRET_KEY_BASE: 599888d84f45f0f9cc28ef4687bf2495611f6c4547eb2db3721801a0d1c1c0ed
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=traefik"
