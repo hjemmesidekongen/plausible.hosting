@@ -38,7 +38,7 @@ services:
     networks:
       - traefik
     environment:
-      BASE_URL: plausible.hjemmesidekongen.dk
+      BASE_URL: https://plausible.hjemmesidekongen.dk
       SECRET_KEY_BASE: asdklasdjlajdlkasdjalkdjaslkjaskldjaslkdj
     labels:
       - "traefik.enable=true"
